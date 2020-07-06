@@ -31,3 +31,14 @@ box4/.vagrant/machines/default/virtualbox/private_key
 box4/.vagrant/machines/default/virtualbox/synced_folders
 box4/.vagrant/machines/default/virtualbox/vagrant_cwd
 box4/.vagrant/rgloader/loader.rb
+box1/.vagrant/bundler/global.sol
+box1/.vagrant/machines/default/virtualbox/action_provision
+box1/.vagrant/machines/default/virtualbox/action_set_name
+box1/.vagrant/machines/default/virtualbox/box_meta
+box1/.vagrant/machines/default/virtualbox/creator_uid
+box1/.vagrant/machines/default/virtualbox/id
+box1/.vagrant/machines/default/virtualbox/index_uuid
+box1/.vagrant/machines/default/virtualbox/private_key
+box1/.vagrant/machines/default/virtualbox/synced_folders
+box1/.vagrant/machines/default/virtualbox/vagrant_cwd
+box1/.vagrant/rgloader/loader.rb
