@@ -1,14 +1,29 @@
 # HackMadrid Falco Workshop
+
+This workshop was taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera (follow on twitter as @vicen_herrera)](https://twitter.com/vicen_herrera).
+
 ## Introduction
+
+**Falco** is a runtime security tool that allows you to monitor kernel system calls and kubernetes audit log commands to detect risky and malicious behaviour. It comes with a big set of detection rules created and curated by the Falco's developers that cover a lot of cases to help you strength your infrastructure security posture.
+
+In this workshop, we learn how to install and configure Falco, how their rules and settings works, and how to write additional rules.
+
+
+Watch it at [HackMadrid's YouTube channel (in Spanish)](https://www.youtube.com/channel/UCSfK57ch6tQHzUuc1_-YbcA).
+
+[These slides that we used (in English)](bit.ly/falcoworkshop) have a lot of information about Falco.
+
+You can look for more information about all things Falco at their [website](https://falco.org/), [GitHub's repo](https://github.com/falcosecurity/falco), and follow on Twitter [@falco_org](https://twitter.com/falco_org)
+
 ## About the workshop
 ### Workshop software you need
 
 * Any operating system: Linux, Windows, MacOs
-* VirtualBox (required by Vagrant)
-* Vagrant
-* An editor
+* [VirtualBox](https://www.virtualbox.org) (required by Vagrant)
+* [Vagrant](https://www.vagrantup.com/)
+* Any code editor
 
-The presenter will use Visual Studio Code, with these extensions:
+The presenter will use [Visual Studio Code](https://code.visualstudio.com/), with these extensions:
 * Remote editor, to edit files inside the Vagrant box
 * Live code share, to share the session with anybody
 
