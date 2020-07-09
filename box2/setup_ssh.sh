@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-apt-get update
+sudo apt-get update
 
 # Falco install prerequisites
-apt-get install -y curl gnupg2
+sudo apt-get install -y curl gnupg2
 
 # Falco deb source
-curl -s https://falco.org/repo/falcosecurity-3672BA8F.asc | apt-key add -
-echo "deb https://dl.bintray.com/falcosecurity/deb stable main" | tee -a /etc/apt/sources.list.d/falcosecurity.list
-apt-get update -y
+curl -s https://falco.org/repo/falcosecurity-3672BA8F.asc | sudo apt-key add -
+echo "deb https://dl.bintray.com/falcosecurity/deb stable main" | sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
+sudo apt-get update -y
 
 # Kernel headers
-apt-get -y install linux-headers-$(uname -r)
+sudo apt-get -y install linux-headers-$(uname -r)
 
 # Install Falco
-apt-get install -y falco
+sudo apt-get install -y falco
 
 
 # apt-get install -y apache2

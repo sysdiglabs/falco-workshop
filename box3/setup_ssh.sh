@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-apt-get update
+sudo apt-get update
 
-apt-get install -y curl gnupg2
+sudo apt-get install -y curl gnupg2
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh

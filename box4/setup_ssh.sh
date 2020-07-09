@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-apt-get update
+sudo apt-get update
 
-apt-get install -y curl gnupg2 apt-transport-https git
+sudo apt-get install -y curl gnupg2 apt-transport-https git vim
 
 # Kubectl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-apt-get update -y
-apt-get install -y kubectl
-echo "source <(kubectl completion bash)" >>$HOME/.bashrc
-echo "alias k=kubectl" >>$HOME/.bashrc
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update -y
+sudo apt-get install -y kubectl
+echo "source <(kubectl completion bash)" >>/home/vagrant/.bashrc
+echo "alias k=kubectl" >>/home/vagrant/.bashrc
 
 # Kubens
 curl -Lo kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
@@ -21,10 +21,12 @@ sudo mv kubens /usr/local/bin
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+rm ./get_helm.sh
 
 # Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
+rm get-docker.sh
 sudo usermod -aG docker vagrant
 
 
