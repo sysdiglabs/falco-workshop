@@ -1,0 +1,40 @@
+
+
+- macro: mydir
+  condition: fd.name startswith /var/html
+
+- rule: Write below mydir
+  desc: an attempt to write to any file below mydir
+  condition: >
+    mydir and evt.dir = < and open_write
+        and proc_name_exists
+        and not proc.name in (passwd_binaries)
+  output: "File below mydir opened for writing (user=%user.name command=%proc.cmdline parent=%proc.pname pcmdline=%proc.pcmdline file=%fd.name program=%proc.name gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] container_id=%container.id image=%container.image.repository)"
+  priority: ERROR
+  tags: [filesystem, mitre_persistence]
+
+
+  
+- list: forbidden_shell_binaries
+  items: [ find ]
+
+- list: allowed_shell_binaries
+  items: []
+
+- rule: Shell binary spawned process
+  desc: >
+    Find program spawned a new process other than itself.
+  condition: >
+    proc.pname in (forbidden_shell_binaries) and spawned_process
+    and not proc.name in (allowed_shell_binaries)
+  output: >
+    Shell binary spawned process other than itself
+    (user=%user.name
+    parent=%proc.pname pcmdline=%proc.pcmdline gparent=%proc.aname[2]
+    container_id=%container.id image=%container.image.repository)
+  source: syscall
+  priority: NOTICE
+  tags: [process, database, mitre_execution]
+
+
+

@@ -13,10 +13,13 @@ helm install falco stable/falco \
 
 exit
 
-# New way of installing Falco, not compatible with Minikube right now
+# New way of installing Falco, output to stdout not working
 helm repo add falcosecurity https://falcosecurity.github.io/charts
 helm repo update
-helm install falco falcosecurity/falco
+
+helm install falco falcosecurity/falco \
+    --set falco.webserver.enabled=true \
+    --set falco.webserver.clusterIP=10.96.0.99
 
 exit
 
