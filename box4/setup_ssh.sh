@@ -13,7 +13,7 @@ echo "source <(kubectl completion bash)" >>/home/vagrant/.bashrc
 echo "alias k=kubectl" >>/home/vagrant/.bashrc
 
 # Kubens
-curl -Lo kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
+curl -sLo kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
 chmod +x kubens
 sudo mv kubens /usr/local/bin
 
@@ -31,7 +31,7 @@ sudo usermod -aG docker vagrant
 
 
 # Minikube 1.8.2
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.8.2/minikube-linux-amd64 \
+curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.8.2/minikube-linux-amd64 \
   && chmod +x minikube
 sudo cp minikube /usr/local/bin && rm minikube
 
