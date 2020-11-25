@@ -4,32 +4,16 @@
 
 **Falco** is a runtime security tool that allows you to monitor kernel system calls and kubernetes audit log commands to detect risky and malicious behaviour. It comes with a big set of detection rules created and curated by the Falco's developers that cover a lot of cases to help you strength your infrastructure security posture.
 
-In this workshop, we learn how to install and configure Falco, how their rules and settings works, and how to write additional rules.
-
-
-Watch it at [HackMadrid's YouTube channel (in Spanish)](https://www.youtube.com/channel/UCSfK57ch6tQHzUuc1_-YbcA).
-
-[These slides that we used (in English)](bit.ly/falcoworkshop) have a lot of information about Falco.
+This repository contain Vagrant boxes to test Falco installation, as well as boxes with Falco preinstalled to jump in writting new rules.
 
 You can look for more information about all things Falco at their [website](https://falco.org/), [GitHub's repo](https://github.com/falcosecurity/falco), and follow on Twitter [@falco_org](https://twitter.com/falco_org)
 
-## About the workshop
-### Workshop software you need
+## Software you need
 
 * Any operating system: Linux, Windows, MacOs
 * [VirtualBox](https://www.virtualbox.org) (required by Vagrant)
 * [Vagrant](https://www.vagrantup.com/)
 * Any code editor
-
-The presenter will use [Visual Studio Code](https://code.visualstudio.com/), with these extensions:
-* Remote editor, to edit files inside the Vagrant box
-* Live code share, to share the session with anybody
-
-### Sharing code editor session in real time
-
-By visiting the session URL, you will see the same resources the presenter is editing in real time, being also able to copy and paste into your computer. Access will be readonly.
-
-You can choose to open it inside a local Visual Studio Code installation, or just using your browser without installing anything. A Microsoft or GitHub account might be required.
 
 ### Using a Vagrant box
 
@@ -59,7 +43,7 @@ vagrant destroy -f
 ```
 ### Shared directories in the Vagrant boxes
 
-Using box2 onwards, each box syncs this folder in `/workshop` using NFS. To be able to do so, it might require administrative priviledges on your computer, and it will prompt for your password. Remember it's not asking for Vagrant password, but for the password of your current user in your machine to start the sync process.
+Using box2 onwards, each box syncs the main folder where you cloned the repo with `/workshop` in the Virtual Machine using NFS. To be able to do so, it might require administrative priviledges on your computer, and it will prompt for your password. Remember it's not asking for Vagrant password, but for the password of your current user in your machine to start the sync process.
 
 ### Connect Visual Studio Code to the Vagrant box
 
@@ -145,4 +129,6 @@ cat /var/log/falco.log
 ## History
 
 * Taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
+  * Watch it at [HackMadrid's YouTube channel (in Spanish)](https://www.youtube.com/channel/UCSfK57ch6tQHzUuc1_-YbcA).
+  * [Slides (in English)](bit.ly/falcoworkshop), with a lot of information about Falco.
 * Used in Falco course for Quantika14 security course videos at November 25th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
