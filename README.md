@@ -32,6 +32,9 @@ vagrant ssh
 # to use 'su', set a password for root (not set by default)
 sudo passwd root
 
+# or use it with sudo
+sudo su
+
 # exit Vagrant box
 exit
 
