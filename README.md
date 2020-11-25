@@ -1,6 +1,4 @@
-# HackMadrid Falco Workshop
-
-This workshop was taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera (follow on twitter as @vicen_herrera)](https://twitter.com/vicen_herrera).
+# Falco Workshop help files
 
 ## Introduction
 
@@ -144,3 +142,7 @@ Read Falco logs
 ```
 cat /var/log/falco.log
 ```
+## History
+
+* Taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
+* Used in Falco course for Quantika14 security course videos at November 25th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
