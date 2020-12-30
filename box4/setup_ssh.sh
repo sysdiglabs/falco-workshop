@@ -11,6 +11,7 @@ sudo apt-get update -y
 sudo apt-get install -y kubectl
 echo "source <(kubectl completion bash)" >>/home/vagrant/.bashrc
 echo "alias k=kubectl" >>/home/vagrant/.bashrc
+echo 'complete -F __start_kubectl k' >>/home/vagrant/.bashrc
 
 # Kubens
 curl -sLo kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
@@ -36,12 +37,22 @@ curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.8.2/minik
 sudo cp minikube /usr/local/bin && rm minikube
 
 
-# Start minikube with no vm driver
-sudo minikube start --vm-driver=none --apiserver-ips 127.0.0.1 \
+# Start minikube with no vm driver, dynamic audit enabled
+sudo minikube start --driver=none \
+  --apiserver-ips 127.0.0.1 \
   --apiserver-name localhost \
-  --extra-config=apiserver.audit-dynamic-configuration=true \
   --feature-gates=DynamicAuditing=true \
+  --extra-config=apiserver.audit-dynamic-configuration=true \
   --extra-config=apiserver.runtime-config=auditregistration.k8s.io/v1alpha1
+
+# WIP to set up Audit Log with NodePort
+# sudo minikube start --driver=none \
+#   --apiserver-ips 127.0.0.1 \
+#   --apiserver-name localhost \
+#   --extra-config=audit-policy-file=/vagrant/k8s_audit_cfg/audit-policy.yaml
+#   --extra-config=audit-webhook-batch-max-wait=5s
+#   --extra-config=audit-webhook-config-file=/vagrant/k8s_audit_cfg/webhook-config.yaml
+
 
 sudo cp -R /root/.kube /root/.minikube /home/vagrant/
 sudo chown -R vagrant /root/.kube /root/.minikube /root /home/vagrant/.kube
