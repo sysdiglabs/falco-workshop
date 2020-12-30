@@ -9,7 +9,7 @@ echo $task_id
 AWS_PAGER="" aws ecs stop-task --cluster CloudConnector --task $task_id
 
 # Check new log stream name for new Cloud Connector instance
-aws logs describe-log-streams --log-group-name cloud-connector --order-by LastEventTime --descending | grep -m1 ecs/CloudConnectorConfig
+aws logs describe-log-streams --log-group-name cloud-connector --order-by LastEventTime --descending | grep -m1 "ecs/CloudConnector/"
 cc_log_stream=CHANGE_TO_NEW_LOG_STREAM
 
 # Read new log stream to check that log files have been processed
