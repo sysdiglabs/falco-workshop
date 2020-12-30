@@ -1,17 +1,17 @@
 
-- rule: Terminate AWS EC2 instance 
-  desc: Detect terminating an AWS EC2 instance
+- rule: Terminate AWS Instances
+  desc: Detect terminating AWS instances.
   condition:
-    not jevt.value[/errorCode] exists and
-    jevt.value[/eventName]="TerminateInstances"
+    jevt.value[/eventName]="TerminateInstances" and not jevt.value[/errorCode] exists
   output:
-    An AWS EC2 instance has been terminated
+    A number of AWS EC2 instances have been terminated.
     (requesting user=%jevt.value[/userIdentity/arn],
      requesting IP=%jevt.value[/sourceIPAddress],
      AWS region=%jevt.value[/awsRegion])
-  priority: CRITICAL
+  priority: WARNING
   tags:
     - cloud
     - source=cloudtrail
     - aws
+    - aws_ec2
   source: k8s_audit
