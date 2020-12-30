@@ -1,0 +1,20 @@
+
+- list: disallowed_aws_regions
+  items: []
+
+- rule: AWS Command Executed on Unused Region
+  desc: Detect AWS command execution on unused regions.
+  condition:
+    not jevt.value[/errorCode] exists and
+    jevt.value[/awsRegion] in (disallowed_aws_regions)
+  output:
+    An AWS command has been executed on an unused region
+    (requesting user=%jevt.value[/userIdentity/arn],
+     requesting IP=%jevt.value[/sourceIPAddress],
+     AWS region=%jevt.value[/awsRegion])
+  priority: CRITICAL
+  tags:
+    - cloud
+    - source=cloudtrail
+    - aws
+  source: k8s_audit
