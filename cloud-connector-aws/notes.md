@@ -1,3 +1,6 @@
+# AWS CLI useful commands for Cloud Connector
+
+```bash
 # Sync rules directory to bucket
 cc_bucket=$(aws cloudformation list-stack-resources --stack-name CloudConnector --output json | jq '.StackResourceSummaries[] | select(.LogicalResourceId=="CloudConnectorBucket").PhysicalResourceId' | xargs)
 echo $cc_bucket
@@ -17,3 +20,4 @@ aws logs filter-log-events --log-group-name cloud-connector --log-stream-names $
 
 # Check latest security events
 aws logs get-log-events --log-group-name cloud-connector --log-stream-name alerts --no-start-from-head --limit 5
+```
