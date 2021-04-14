@@ -133,5 +133,5 @@ cat /var/log/falco.log
 
 * Taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
   * Watch it at [HackMadrid's YouTube channel (in Spanish)](https://www.youtube.com/channel/UCSfK57ch6tQHzUuc1_-YbcA).
-  * [Slides (in English)](bit.ly/falcoworkshop), with a lot of information about Falco.
+  * [Slides (in English)](https://bit.ly/falcoworkshop), with a lot of information about Falco.
 * Used in Falco course for Quantika14 security course videos at November 25th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
