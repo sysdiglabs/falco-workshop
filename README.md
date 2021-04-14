@@ -93,20 +93,24 @@ sudo bash install-falco.sh
 
 ## Test Falco is working
 
-Edit falco.yaml
+Edit `falco.yaml` configuration file:
 
+```bash
 sudo nano /etc/falco/falco.yaml
-
-Change
-
 ```
+
+Change:
+
+```yaml
 file_output:
   enabled: false
   keep_alive: false
   filename: ./events.txt
 ```
 
-```
+To:
+
+```yaml
 file_output:
   enabled: true
   keep_alive: false
@@ -115,23 +119,25 @@ file_output:
 
 Restart Falco to get new configuration:
 
-```
+```bash
 sudo /etc/init.d/falco restart
 ```
 
-Write a test file to etc
+Write a test file to `/etc` folder so it triggers a security event:
 
-```
+```bash
 sudo touch /etc/test
 ```
 
-Read Falco logs
-```
+Read Falco logs to see all security events:
+
+```bash
 cat /var/log/falco.log
 ```
 ## History
 
-* Taught in a virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
+* Virtual session for HackMadrid at July 4th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
   * Watch it at [HackMadrid's YouTube channel (in Spanish)](https://www.youtube.com/channel/UCSfK57ch6tQHzUuc1_-YbcA).
   * [Slides (in English)](https://bit.ly/falcoworkshop), with a lot of information about Falco.
-* Used in Falco course for Quantika14 security course videos at November 25th 2020 by [Vicente Herrera](https://twitter.com/vicen_herrera).
+* Falco course for Quantika14 security course videos (Spanish), launched November 25th 2020, by [Vicente Herrera](https://twitter.com/vicen_herrera).
+* Demo for the "OnTheNubs" Twitch channel (Spanish) https://twitter.com/OnTheNubs [@onthenubs](https://twitter.com/OnTheNubs).
