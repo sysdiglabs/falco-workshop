@@ -141,3 +141,5 @@ cat /var/log/falco.log
   * [Slides (in English)](https://bit.ly/falcoworkshop), with a lot of information about Falco.
 * Falco course for Quantika14 security course videos (Spanish), launched November 25th 2020, by [Vicente Herrera](https://twitter.com/vicen_herrera).
 * Demo for the "OnTheNubs" Twitch channel (Spanish) https://twitter.com/OnTheNubs [@onthenubs](https://twitter.com/OnTheNubs).
+* Talk for Kubernetes Community Days Spain: [Detecting cryptomining with Falco](https://community.cncf.io/events/details/cncf-kcd-spain-presents-kubernetes-community-days-spain/)
+
