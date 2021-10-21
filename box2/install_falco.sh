@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt-get update
+sudo apt-get update --allow-releaseinfo-change
 
 # Falco install prerequisites
 sudo apt-get install -y curl gnupg2 apt-transport-https ca-certificates

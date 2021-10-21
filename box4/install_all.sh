@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Base packages installation
-sudo apt-get update
+sudo apt-get update --allow-releaseinfo-change
 sudo apt-get install -y curl gnupg2 apt-transport-https git vim
 
 # Kubectl
@@ -40,9 +40,31 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
 sudo usermod -aG docker vagrant
 
+
+# Kubernetes 1.20.2 requirements
+sudo apt-get install -y conntrack
+## /usr/sbin/iptables needs to be in path for minikube driver=none
+export PATH=$PATH:/usr/sbin/
+
+# Minikube 1.23.2
+
+curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.23.2/minikube-linux-amd64 \
+  && chmod +x minikube
+sudo cp minikube /usr/local/bin && rm minikube
+
+# Start minikube with no vm driver, dynamic audit enabled
+minikube start --driver=none \
+  --apiserver-ips 127.0.0.1 \
+  --apiserver-name localhost
+  # --feature-gates=DynamicAuditing=true \
+  # --extra-config=apiserver.audit-dynamic-configuration=true \
+  # --extra-config=apiserver.runtime-config=auditregistration.k8s.io/v1alpha1
+
+# Assign kubeconfig 
+sudo cp -R /root/.kube /root/.minikube /home/vagrant/
+sudo chown -R vagrant /root/.kube /root/.minikube /root /home/vagrant/.kube
 
 
 # Kernel headers
@@ -51,34 +73,3 @@ sudo usermod -aG docker vagrant
 # sudo apt-get -y install linux-headers-$(uname -r)
 ## This is slower, but works always on amd64
 sudo apt-get install -y linux-image-amd64 linux-headers-amd64
-
-
-## Kubernetes 1.20.2 requires conntrack
-sudo apt-get install -y conntrack
-## /usr/sbin/iptables needs to be in path for minikube driver=none
-export PATH=$PATH:/usr/sbin/
-
-# Minikube 1.17.1
-
-curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.23.2/minikube-linux-amd64 \
-  && chmod +x minikube
-sudo cp minikube /usr/local/bin && rm minikube
-
-# sudo -u vagrant minikube start --driver=docker
-
-## Start minikube with no vm driver, dynamic audit enabled
-# minikube start --driver=none
-#   --apiserver-ips 127.0.0.1 \
-#   --apiserver-name localhost \
-#   --feature-gates=DynamicAuditing=true \
-#   --extra-config=apiserver.audit-dynamic-configuration=true \
-#   --extra-config=apiserver.runtime-config=auditregistration.k8s.io/v1alpha1
-
-# # Assign kubeconfig 
-# sudo cp -R /root/.kube /root/.minikube /home/vagrant/
-# sudo chown -R vagrant /root/.kube /root/.minikube /root /home/vagrant/.kube
-
-
-
-
-

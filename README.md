@@ -77,6 +77,16 @@ https://medium.com/@lopezgand/connect-visual-studio-code-with-vagrant-in-your-lo
  * Helm
  * Minikube
  * Minikube cluster started using native host
+
+**box5**
+ * 8 Gb memory for VM
+ * Debian 10
+ * NFS shared folder /workshop
+ * Docker
+ * Kubectl
+ * Helm
+ * Minikube
+ * Minikube cluster started using native host
  * Falco kernel module loaded in the vm host using Docker
  * Script to install Falco in Minikube with Kubernetes audit log enabled at: /workshop/box4/install_helm_falco.sh
 
