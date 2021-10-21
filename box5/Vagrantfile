@@ -7,8 +7,6 @@ config.vm.provider "virtualbox" do |vb|
    vb.memory = "8192"
  end
 
-config.vm.synced_folder '.', '/vagrant', disabled: true
-
 
 # Uncomment to share workshop dir synced with VM
 # May require administrative privilegdes on host

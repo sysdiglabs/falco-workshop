@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 
+# Base packages installation
 sudo apt-get update
-
 sudo apt-get install -y curl gnupg2 apt-transport-https git vim
 
 # Kubectl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update -y
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
 sudo apt-get install -y kubectl
+
+# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+# echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+# sudo apt-get update -y
+# sudo apt-get install -y kubectl
+
 echo "source <(kubectl completion bash)" >>/home/vagrant/.bashrc
 echo "alias k=kubectl" >>/home/vagrant/.bashrc
 echo 'complete -F __start_kubectl k' >>/home/vagrant/.bashrc
@@ -33,60 +41,44 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
+sudo usermod -aG docker vagrant
 
-# Minikube 1.8.2
-curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.8.2/minikube-linux-amd64 \
+
+
+# Kernel headers
+
+## This is faster, doesn't detect all kinds of headers
+# sudo apt-get -y install linux-headers-$(uname -r)
+## This is slower, but works always on amd64
+sudo apt-get install -y linux-image-amd64 linux-headers-amd64
+
+
+## Kubernetes 1.20.2 requires conntrack
+sudo apt-get install -y conntrack
+## /usr/sbin/iptables needs to be in path for minikube driver=none
+export PATH=$PATH:/usr/sbin/
+
+# Minikube 1.17.1
+
+curl -sLo minikube https://storage.googleapis.com/minikube/releases/v1.23.2/minikube-linux-amd64 \
   && chmod +x minikube
 sudo cp minikube /usr/local/bin && rm minikube
 
+# sudo -u vagrant minikube start --driver=docker
 
-# Start minikube with no vm driver, dynamic audit enabled
-sudo minikube start --driver=none \
-  --apiserver-ips 127.0.0.1 \
-  --apiserver-name localhost \
-  --feature-gates=DynamicAuditing=true \
-  --extra-config=apiserver.audit-dynamic-configuration=true \
-  --extra-config=apiserver.runtime-config=auditregistration.k8s.io/v1alpha1
-
-# WIP to set up Audit Log with NodePort
-# sudo minikube start --driver=none \
+## Start minikube with no vm driver, dynamic audit enabled
+# minikube start --driver=none
 #   --apiserver-ips 127.0.0.1 \
 #   --apiserver-name localhost \
-#   --extra-config=audit-policy-file=/vagrant/k8s_audit_cfg/audit-policy.yaml
-#   --extra-config=audit-webhook-batch-max-wait=5s
-#   --extra-config=audit-webhook-config-file=/vagrant/k8s_audit_cfg/webhook-config.yaml
+#   --feature-gates=DynamicAuditing=true \
+#   --extra-config=apiserver.audit-dynamic-configuration=true \
+#   --extra-config=apiserver.runtime-config=auditregistration.k8s.io/v1alpha1
+
+# # Assign kubeconfig 
+# sudo cp -R /root/.kube /root/.minikube /home/vagrant/
+# sudo chown -R vagrant /root/.kube /root/.minikube /root /home/vagrant/.kube
 
 
-sudo cp -R /root/.kube /root/.minikube /home/vagrant/
-sudo chown -R vagrant /root/.kube /root/.minikube /root /home/vagrant/.kube
 
-# Install full Falco on host
-# This is slower, but succeeds where Falco driver using Docker may fail
 
-# Falco deb source
-curl -s https://falco.org/repo/falcosecurity-3672BA8F.asc | sudo apt-key add -
-echo "deb https://download.falco.org/packages/deb stable main" | sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
-sudo apt-get update -y
 
-# Kernel headers
-# This is faster, doesn't detect all kinds of headers
-sudo apt-get -y install linux-headers-$(uname -r)
-# This is slower, but works always on amd64
-apt-get install linux-image-amd64 linux-headers-amd64
-
-# Install Falco
-sudo apt-get install -y falco
-
-exit
-
-# Falco driver on host VM using Docker
-docker pull falcosecurity/falco-driver-loader:latest
-docker run --rm \
-   --privileged \
-   -v /root/.falco:/root/.falco \
-   -v /proc:/host/proc:ro \
-   -v /boot:/host/boot:ro \
-   -v /lib/modules:/host/lib/modules:ro \
-   -v /usr:/host/usr:ro \
-   -v /etc:/host/etc:ro \
-   falcosecurity/falco-driver-loader:latest
